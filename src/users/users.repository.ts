@@ -8,15 +8,16 @@ import { User } from "./entities/user.entity";
 import { AuthCredentialsDto } from "./dto/auth.credentials.dto";
 import * as bcrypt from "bcrypt";
 
+// how to install bcrypt
+// npm install bcrypt
+
 @Injectable()
 export class UsersRepository extends Repository<User> {
   constructor(private dataSource: DataSource) {
     super(User, dataSource.createEntityManager());
   }
 
-  async findAll() {
-    return await this.find();
-  }
+
 
   async findById(id: number) {}
 
