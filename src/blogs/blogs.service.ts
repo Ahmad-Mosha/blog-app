@@ -3,6 +3,7 @@ import {BlogsRepository} from "./blogs.repository";
 import {CreateBlogDTO} from "./dto/create-blog.dto";
 import {User} from "../users/entities/user.entity";
 import {FilterBlogsDto} from "./dto/filter-blogs.dto";
+import {UpdateBlogDto} from "./dto/update-blog.dto";
 
 @Injectable()
 export class BlogsService {
@@ -19,6 +20,15 @@ export class BlogsService {
 
     async filterBlogs(search: FilterBlogsDto) {
         return await this.blogsRepository.filterBlogs(search);
+    }
+
+    async update(id:string , payload: UpdateBlogDto, user: User) {
+        const blog = await this.blogsRepository.findOne({where: {id, user}})
+        if (!blog) {
+            throw new NotFoundException('Blog not found');
+        }
+        await this.blogsRepository.update(id, payload);
+        return {message: 'Blog updated successfully'};
     }
    async delete(id: string, user: User) {
         const blog = await this.blogsRepository.findOne({where: {id, user}})

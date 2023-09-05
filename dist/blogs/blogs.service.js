@@ -26,6 +26,14 @@ let BlogsService = exports.BlogsService = class BlogsService {
     async filterBlogs(search) {
         return await this.blogsRepository.filterBlogs(search);
     }
+    async update(id, payload, user) {
+        const blog = await this.blogsRepository.findOne({ where: { id, user } });
+        if (!blog) {
+            throw new common_1.NotFoundException('Blog not found');
+        }
+        await this.blogsRepository.update(id, payload);
+        return { message: 'Blog updated successfully' };
+    }
     async delete(id, user) {
         const blog = await this.blogsRepository.findOne({ where: { id, user } });
         if (!blog) {

@@ -20,6 +20,7 @@ const get_user_decorator_1 = require("../decorators /get-user.decorator");
 const user_entity_1 = require("../users/entities/user.entity");
 const create_blog_dto_1 = require("./dto/create-blog.dto");
 const filter_blogs_dto_1 = require("./dto/filter-blogs.dto");
+const update_blog_dto_1 = require("./dto/update-blog.dto");
 let BlogsController = exports.BlogsController = class BlogsController {
     constructor(blogsService) {
         this.blogsService = blogsService;
@@ -29,6 +30,9 @@ let BlogsController = exports.BlogsController = class BlogsController {
     }
     async filterBlogs(search) {
         return await this.blogsService.filterBlogs(search);
+    }
+    async update(id, payload, user) {
+        return await this.blogsService.update(id, payload, user);
     }
     async delete(id, user) {
         return await this.blogsService.delete(id, user);
@@ -46,14 +50,25 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('filter/:search'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [filter_blogs_dto_1.FilterBlogsDto]),
     __metadata("design:returntype", Promise)
 ], BlogsController.prototype, "filterBlogs", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Delete)('delete/:id'),
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, get_user_decorator_1.GetUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_blog_dto_1.UpdateBlogDto, user_entity_1.User]),
+    __metadata("design:returntype", Promise)
+], BlogsController.prototype, "update", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
     __param(1, (0, get_user_decorator_1.GetUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, user_entity_1.User]),

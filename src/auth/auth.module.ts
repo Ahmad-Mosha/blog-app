@@ -20,7 +20,7 @@ import { BlogsModule } from '../blogs/blogs.module';
       JwtModule.register({
           secret: jwtSecret,
           signOptions: {
-            expiresIn: 600
+            expiresIn: 3600
         }
       }),
       BlogsModule,
