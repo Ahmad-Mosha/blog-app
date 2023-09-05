@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const auth_module_1 = require("./auth/auth.module");
+const posts_module_1 = require("./posts/posts.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -28,6 +29,7 @@ exports.AppModule = AppModule = __decorate([
                 synchronize: process.env.TYPEORM_SYNCHRONIZE === "true",
             }),
             auth_module_1.AuthModule,
+            posts_module_1.PostsModule,
         ],
     })
 ], AppModule);

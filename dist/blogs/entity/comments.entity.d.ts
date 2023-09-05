@@ -1,6 +1,6 @@
-import { Posts } from "./posts.entity";
+import { Post } from "../../posts/entity/posts.entity";
 export declare class Comment {
     id: number;
     content: string;
-    post: Posts;
+    post: Post;
 }
