@@ -9,24 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Comment = void 0;
-const typeorm_1 = require("typeorm");
-const posts_entity_1 = require("../../posts/entity/posts.entity");
-let Comment = exports.Comment = class Comment {
+exports.PostsService = void 0;
+const common_1 = require("@nestjs/common");
+const posts_repository_1 = require("./posts.repository");
+let PostsService = exports.PostsService = class PostsService {
+    constructor(postsRepository) {
+        this.postsRepository = postsRepository;
+    }
+    async createPost(blogId, payload, user) {
+        return this.postsRepository.createPost(blogId, payload, user);
+    }
 };
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], Comment.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Comment.prototype, "content", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => posts_entity_1.Post, post => post.comments),
-    __metadata("design:type", posts_entity_1.Post)
-], Comment.prototype, "post", void 0);
-exports.Comment = Comment = __decorate([
-    (0, typeorm_1.Entity)()
-], Comment);
-//# sourceMappingURL=comments.entity.js.map
+exports.PostsService = PostsService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [posts_repository_1.PostsRepository])
+], PostsService);
+//# sourceMappingURL=posts.service.js.map

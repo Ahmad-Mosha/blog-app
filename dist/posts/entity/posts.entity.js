@@ -9,29 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Posts = void 0;
+exports.Post = void 0;
 const typeorm_1 = require("typeorm");
-const blogs_entity_1 = require("./blogs.entity");
-const comments_entity_1 = require("./comments.entity");
-let Posts = exports.Posts = class Posts {
+const blogs_entity_1 = require("../../blogs/entity/blogs.entity");
+const comments_entity_1 = require("../../blogs/entity/comments.entity");
+const user_entity_1 = require("../../users/entities/user.entity");
+let Post = exports.Post = class Post {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], Posts.prototype, "id", void 0);
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
+], Post.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Posts.prototype, "title", void 0);
+], Post.prototype, "content", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, user => user.posts),
+    __metadata("design:type", user_entity_1.User)
+], Post.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => blogs_entity_1.Blog, blog => blog.posts),
     __metadata("design:type", blogs_entity_1.Blog)
-], Posts.prototype, "blog", void 0);
+], Post.prototype, "blog", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => comments_entity_1.Comment, comment => comment.post),
     __metadata("design:type", Array)
-], Posts.prototype, "comments", void 0);
-exports.Posts = Posts = __decorate([
+], Post.prototype, "comments", void 0);
+exports.Post = Post = __decorate([
     (0, typeorm_1.Entity)()
-], Posts);
+], Post);
 //# sourceMappingURL=posts.entity.js.map
