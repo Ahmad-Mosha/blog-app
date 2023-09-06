@@ -32,9 +32,26 @@ let PostsRepository = exports.PostsRepository = class PostsRepository extends ty
         await this.save(post);
         return post.content;
     }
+    async getPosts(blogId) {
+        const blog = await this.blogsRepository.findOne({ where: { id: blogId } });
+        if (!blog) {
+            throw new common_1.NotFoundException("Blog not found");
+        }
+        return this.find({ where: { blog }, select: ["content"] });
+    }
+    async updatePost(postId, payload, user) {
+        const post = await this.findOne({ where: { id: postId, user } });
+        if (!post) {
+            throw new common_1.NotFoundException("Post not found");
+        }
+        post.content = payload.content;
+        await this.save(post);
+        return post.content;
+    }
 };
 exports.PostsRepository = PostsRepository = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeorm_1.DataSource, blogs_repository_1.BlogsRepository])
+    __metadata("design:paramtypes", [typeorm_1.DataSource,
+        blogs_repository_1.BlogsRepository])
 ], PostsRepository);
 //# sourceMappingURL=posts.repository.js.map

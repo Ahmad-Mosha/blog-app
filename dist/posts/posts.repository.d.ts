@@ -8,4 +8,6 @@ export declare class PostsRepository extends Repository<Post> {
     private blogsRepository;
     constructor(dataSource: DataSource, blogsRepository: BlogsRepository);
     createPost(blogId: string, payload: CreatePostDto, user: User): Promise<string>;
+    getPosts(blogId: string): Promise<Post[]>;
+    updatePost(postId: string, payload: CreatePostDto, user: User): Promise<string>;
 }

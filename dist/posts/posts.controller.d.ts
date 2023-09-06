@@ -5,4 +5,6 @@ export declare class PostsController {
     private postsService;
     constructor(postsService: PostsService);
     createPost(blogId: string, payload: CreatePostDto, user: User): Promise<string>;
+    getPosts(blogId: string): Promise<import("./entity/posts.entity").Post[]>;
+    updatePost(postId: string, payload: CreatePostDto, user: User): Promise<string>;
 }
