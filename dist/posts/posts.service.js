@@ -19,6 +19,12 @@ let PostsService = exports.PostsService = class PostsService {
     async createPost(blogId, payload, user) {
         return this.postsRepository.createPost(blogId, payload, user);
     }
+    async getPosts(blogId) {
+        return this.postsRepository.getPosts(blogId);
+    }
+    async updatePost(postId, payload, user) {
+        return this.postsRepository.updatePost(postId, payload, user);
+    }
 };
 exports.PostsService = PostsService = __decorate([
     (0, common_1.Injectable)(),

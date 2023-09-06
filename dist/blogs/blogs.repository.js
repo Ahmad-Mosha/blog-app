@@ -27,11 +27,13 @@ let BlogsRepository = exports.BlogsRepository = class BlogsRepository extends ty
     }
     async filterBlogs(filterBlogsDto) {
         const { search } = filterBlogsDto;
-        const query = this.createQueryBuilder('blog');
+        const query = this.createQueryBuilder("blog");
         if (search) {
-            query.andWhere('(LOWER(blog.title) LIKE LOWER(:search) OR LOWER(blog.content) LIKE LOWER(:search))', { search: `%${search}%` });
+            query.andWhere("(LOWER(blog.title) LIKE LOWER(:search) OR LOWER(blog.content) LIKE LOWER(:search))", {
+                search: `%${search}%`,
+            });
         }
-        query.select(['blog.title', 'blog.content']);
+        query.select(["blog.title", "blog.content"]);
         const blogs = await query.getMany();
         return blogs;
     }

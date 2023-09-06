@@ -26,19 +26,45 @@ let PostsController = exports.PostsController = class PostsController {
     createPost(blogId, payload, user) {
         return this.postsService.createPost(blogId, payload, user);
     }
+    getPosts(blogId) {
+        return this.postsService.getPosts(blogId);
+    }
+    updatePost(postId, payload, user) {
+        return this.postsService.updatePost(postId, payload, user);
+    }
 };
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Post)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Post)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),
     __param(2, (0, get_user_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, create_post_dto_1.CreatePostDto, user_entity_1.User]),
+    __metadata("design:paramtypes", [String, create_post_dto_1.CreatePostDto,
+        user_entity_1.User]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "createPost", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PostsController.prototype, "getPosts", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Patch)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, get_user_decorator_1.GetUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, create_post_dto_1.CreatePostDto,
+        user_entity_1.User]),
+    __metadata("design:returntype", void 0)
+], PostsController.prototype, "updatePost", null);
 exports.PostsController = PostsController = __decorate([
-    (0, common_1.Controller)('posts'),
+    (0, common_1.Controller)("posts"),
     __metadata("design:paramtypes", [posts_service_1.PostsService])
 ], PostsController);
 //# sourceMappingURL=posts.controller.js.map
