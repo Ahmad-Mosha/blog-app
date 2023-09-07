@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { PostsRepository } from "./posts.repository";
 import { User } from "../users/entities/user.entity";
 import { CreatePostDto } from "./dto/create-post.dto";
@@ -18,6 +18,14 @@ export class PostsService {
   async updatePost(postId: string, payload: CreatePostDto, user: User) {
     return this.postsRepository.updatePost(postId, payload, user);
   }
-}
 
-// testing new username
+  async deletePost(postId: string, user: User) {
+    const post = await this.postsRepository.findOne({
+      where: { id: postId, user },
+    });
+    if (!post) {
+      throw new NotFoundException("Post not found");
+    }
+    await this.postsRepository.delete(post);
+  }
+}
