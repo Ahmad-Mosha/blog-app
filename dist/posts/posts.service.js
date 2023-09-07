@@ -22,6 +22,9 @@ let PostsService = exports.PostsService = class PostsService {
     async getPosts(blogId) {
         return this.postsRepository.getPosts(blogId);
     }
+    async filterPosts(blogId, search) {
+        return this.postsRepository.filterPosts(blogId, search);
+    }
     async updatePost(postId, payload, user) {
         return this.postsRepository.updatePost(postId, payload, user);
     }

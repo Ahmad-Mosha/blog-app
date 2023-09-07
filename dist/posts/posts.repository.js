@@ -39,6 +39,25 @@ let PostsRepository = exports.PostsRepository = class PostsRepository extends ty
         }
         return this.find({ where: { blog }, select: ["content"] });
     }
+    async filterPosts(blogId, search) {
+        const blog = await this.blogsRepository.findOne({ where: { id: blogId } });
+        if (!blog) {
+            throw new common_1.NotFoundException("Blog not found");
+        }
+        const { content } = search;
+        const query = this.createQueryBuilder("post");
+        query.where("post.blogId = :blogId", { blogId });
+        if (content) {
+            query.andWhere("LOWER(post.content) LIKE LOWER(:content)", {
+                content: `%${content}%`,
+            });
+        }
+        const posts = await query.getMany();
+        posts.forEach((post) => {
+            delete post.id;
+        });
+        return posts;
+    }
     async updatePost(postId, payload, user) {
         const post = await this.findOne({ where: { id: postId, user } });
         if (!post) {
