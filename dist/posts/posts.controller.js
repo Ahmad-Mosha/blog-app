@@ -36,6 +36,9 @@ let PostsController = exports.PostsController = class PostsController {
     updatePost(postId, payload, user) {
         return this.postsService.updatePost(postId, payload, user);
     }
+    deletePost(postId, user) {
+        return this.postsService.deletePost(postId, user);
+    }
 };
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
@@ -76,6 +79,15 @@ __decorate([
         user_entity_1.User]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "updatePost", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Delete)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, get_user_decorator_1.GetUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, user_entity_1.User]),
+    __metadata("design:returntype", void 0)
+], PostsController.prototype, "deletePost", null);
 exports.PostsController = PostsController = __decorate([
     (0, common_1.Controller)("posts"),
     __metadata("design:paramtypes", [posts_service_1.PostsService])

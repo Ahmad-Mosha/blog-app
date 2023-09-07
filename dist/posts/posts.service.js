@@ -28,6 +28,15 @@ let PostsService = exports.PostsService = class PostsService {
     async updatePost(postId, payload, user) {
         return this.postsRepository.updatePost(postId, payload, user);
     }
+    async deletePost(postId, user) {
+        const post = await this.postsRepository.findOne({
+            where: { id: postId, user },
+        });
+        if (!post) {
+            throw new common_1.NotFoundException("Post not found");
+        }
+        await this.postsRepository.delete(post);
+    }
 };
 exports.PostsService = PostsService = __decorate([
     (0, common_1.Injectable)(),

@@ -9,4 +9,5 @@ export declare class PostsService {
     getPosts(blogId: string): Promise<import("./entity/posts.entity").Post[]>;
     filterPosts(blogId: string, search: FilterPostsDto): Promise<import("./entity/posts.entity").Post[]>;
     updatePost(postId: string, payload: CreatePostDto, user: User): Promise<string>;
+    deletePost(postId: string, user: User): Promise<void>;
 }
