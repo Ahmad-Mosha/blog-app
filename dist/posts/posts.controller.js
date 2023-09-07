@@ -19,6 +19,7 @@ const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 const create_post_dto_1 = require("./dto/create-post.dto");
 const get_user_decorator_1 = require("../decorators /get-user.decorator");
 const user_entity_1 = require("../users/entities/user.entity");
+const filter_blogs_dto_1 = require("./dto/filter-blogs.dto");
 let PostsController = exports.PostsController = class PostsController {
     constructor(postsService) {
         this.postsService = postsService;
@@ -28,6 +29,9 @@ let PostsController = exports.PostsController = class PostsController {
     }
     getPosts(blogId) {
         return this.postsService.getPosts(blogId);
+    }
+    filterPosts(blogId, search) {
+        return this.postsService.filterPosts(blogId, search);
     }
     updatePost(postId, payload, user) {
         return this.postsService.updatePost(postId, payload, user);
@@ -55,6 +59,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "getPosts", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)(":id/filter"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, filter_blogs_dto_1.FilterPostsDto]),
+    __metadata("design:returntype", void 0)
+], PostsController.prototype, "filterPosts", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(":id"),

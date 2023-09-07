@@ -4,6 +4,7 @@ import { Post } from "./entity/posts.entity";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { User } from "../users/entities/user.entity";
 import { BlogsRepository } from "../blogs/blogs.repository";
+import { FilterPostsDto } from "./dto/filter-blogs.dto";
 
 @Injectable()
 export class PostsRepository extends Repository<Post> {
@@ -33,6 +34,26 @@ export class PostsRepository extends Repository<Post> {
       throw new NotFoundException("Blog not found");
     }
     return this.find({ where: { blog }, select: ["content"] });
+  }
+
+  async filterPosts(blogId: string, search: FilterPostsDto) {
+    const blog = await this.blogsRepository.findOne({ where: { id: blogId } });
+    if (!blog) {
+      throw new NotFoundException("Blog not found");
+    }
+    const { content } = search;
+    const query = this.createQueryBuilder("post");
+    query.where("post.blogId = :blogId", { blogId });
+    if (content) {
+      query.andWhere("LOWER(post.content) LIKE LOWER(:content)", {
+        content: `%${content}%`,
+      });
+    }
+    const posts = await query.getMany();
+    posts.forEach((post) => {
+      delete post.id;
+    });
+    return posts;
   }
 
   async updatePost(postId: string, payload: CreatePostDto, user: User) {
