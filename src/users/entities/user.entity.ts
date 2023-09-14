@@ -1,11 +1,11 @@
-import {Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {Blog} from "../../blogs/entity/blogs.entity";
-import {JoinTable} from "typeorm/browser";
-import {Post} from "../../posts/entity/posts.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Blog } from "../../blogs/entity/blogs.entity";
+import { Post } from "../../posts/entity/posts.entity";
+import { Comment } from "../../comments/entity/comments.entity";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -17,6 +17,8 @@ export class User {
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
 
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
   @Column()
   password: string;

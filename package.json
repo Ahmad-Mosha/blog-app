@@ -37,6 +37,7 @@
     "pg": "^8.11.2",
     "postgres": "^3.3.5",
     "reflect-metadata": "^0.1.13",
+    "rimraf": "^5.0.1",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.17"
   },
