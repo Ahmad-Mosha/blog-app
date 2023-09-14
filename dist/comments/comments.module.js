@@ -6,19 +6,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostsModule = void 0;
+exports.CommentsModule = void 0;
 const common_1 = require("@nestjs/common");
-const posts_service_1 = require("./posts.service");
-const posts_controller_1 = require("./posts.controller");
-const posts_repository_1 = require("./posts.repository");
+const comments_controller_1 = require("./comments.controller");
+const comments_service_1 = require("./comments.service");
+const comments_repository_1 = require("./comments.repository");
+const posts_repository_1 = require("../posts/posts.repository");
 const blogs_repository_1 = require("../blogs/blogs.repository");
-let PostsModule = exports.PostsModule = class PostsModule {
+let CommentsModule = exports.CommentsModule = class CommentsModule {
 };
-exports.PostsModule = PostsModule = __decorate([
+exports.CommentsModule = CommentsModule = __decorate([
     (0, common_1.Module)({
-        providers: [posts_service_1.PostsService, posts_repository_1.PostsRepository, blogs_repository_1.BlogsRepository],
-        controllers: [posts_controller_1.PostsController],
-        exports: [posts_repository_1.PostsRepository],
+        controllers: [comments_controller_1.CommentsController],
+        providers: [
+            comments_service_1.CommentsService,
+            comments_repository_1.CommentsRepository,
+            posts_repository_1.PostsRepository,
+            blogs_repository_1.BlogsRepository,
+        ],
     })
-], PostsModule);
-//# sourceMappingURL=posts.module.js.map
+], CommentsModule);
+//# sourceMappingURL=comments.module.js.map

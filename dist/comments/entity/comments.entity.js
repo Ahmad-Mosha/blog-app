@@ -9,34 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Post = void 0;
+exports.Comment = void 0;
 const typeorm_1 = require("typeorm");
-const blogs_entity_1 = require("../../blogs/entity/blogs.entity");
-const comments_entity_1 = require("../../comments/entity/comments.entity");
+const posts_entity_1 = require("../../posts/entity/posts.entity");
 const user_entity_1 = require("../../users/entities/user.entity");
-let Post = exports.Post = class Post {
+let Comment = exports.Comment = class Comment {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
     __metadata("design:type", String)
-], Post.prototype, "id", void 0);
+], Comment.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Post.prototype, "content", void 0);
+], Comment.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.posts),
+    (0, typeorm_1.ManyToOne)(() => posts_entity_1.Post, (post) => post.comments),
+    __metadata("design:type", posts_entity_1.Post)
+], Comment.prototype, "post", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.comments),
     __metadata("design:type", user_entity_1.User)
-], Post.prototype, "user", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => blogs_entity_1.Blog, (blog) => blog.posts),
-    __metadata("design:type", blogs_entity_1.Blog)
-], Post.prototype, "blog", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => comments_entity_1.Comment, (comment) => comment.post),
-    __metadata("design:type", Array)
-], Post.prototype, "comments", void 0);
-exports.Post = Post = __decorate([
+], Comment.prototype, "user", void 0);
+exports.Comment = Comment = __decorate([
     (0, typeorm_1.Entity)()
-], Post);
-//# sourceMappingURL=posts.entity.js.map
+], Comment);
+//# sourceMappingURL=comments.entity.js.map
